@@ -24,30 +24,7 @@ public class RebroadcastClient {
 		private String unicastServerAddress = null;
 		
 		
-		private List<InetAddress> listAllBroadcastAddresses() throws SocketException {
-		    List<InetAddress> broadcastList = new ArrayList<>();
-		    Enumeration<NetworkInterface> interfaces 
-		      = NetworkInterface.getNetworkInterfaces();
-		    while (interfaces.hasMoreElements()) {
-		        NetworkInterface networkInterface = interfaces.nextElement();
-		 
-		        if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-		            continue;
-		        }
-		 
-		        networkInterface.getInterfaceAddresses().stream() 
-		          .map(a -> a.getBroadcast())
-		          .filter(Objects::nonNull)
-		          .forEach(broadcastList::add);
 
-		        
-		    }
-		    Iterator <InetAddress> broadCastReport = broadcastList.iterator();
-		    while ( broadCastReport.hasNext() ) {
-		    	System.out.println(broadCastReport.next());
-		    }
-		    return broadcastList;
-		}
 
 		public void init()
 		{
@@ -56,18 +33,17 @@ public class RebroadcastClient {
 				//broadcastSocket.setBroadcast(true);
 				byte[] data = new byte[512];
 				
-				listAllBroadcastAddresses();
-				
+	
 				broadcastSocket = new RawSocket();
-				broadcastSocket.setBroadcast(0);
+				//broadcastSocket.setBroadcast(1);
 				broadcastSocket.open(RawSocket.PF_INET, getProtocolByName("udp") );
-				
+
+				InetAddress bcastAddr =  InetAddress.getByName(broadCastAddress);
+				broadcastSocket.bind(bcastAddr);
+
 				System.out.println("Starting to listen....!" );
 
-				InetAddress bcastAddr =  InetAddress.getByName("192.168.1.255");
-				System.out.println(bcastAddr.getHostAddress());
-				
-				broadcastSocket.read(data, bcastAddr.getAddress() );
+				broadcastSocket.read(data);
 				System.out.println("GOT SOMETHING!" );
 				
 			}catch(Exception e) {
