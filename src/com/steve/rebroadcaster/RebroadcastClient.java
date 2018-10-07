@@ -2,15 +2,6 @@ package com.steve.rebroadcaster;
 import com.savarese.rocksaw.net.RawSocket;
 
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-
-import org.savarese.vserv.tcpip.*;
 
 import static com.savarese.rocksaw.net.RawSocket.getProtocolByName;
 
@@ -33,16 +24,14 @@ public class RebroadcastClient {
 				//broadcastSocket.setBroadcast(true);
 				byte[] data = new byte[512];
 				
-	
 				broadcastSocket = new RawSocket();
-				//broadcastSocket.setBroadcast(1);
+				//broadcastSocket.setBroadcast();
 				broadcastSocket.open(RawSocket.PF_INET, getProtocolByName("udp") );
 
 				InetAddress bcastAddr =  InetAddress.getByName(broadCastAddress);
 				broadcastSocket.bind(bcastAddr);
 
 				System.out.println("Starting to listen....!" );
-
 				broadcastSocket.read(data);
 				System.out.println("GOT SOMETHING!" );
 				

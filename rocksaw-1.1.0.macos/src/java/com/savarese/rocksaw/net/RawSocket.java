@@ -363,7 +363,7 @@ public class RawSocket {
 
   private native static void __setBroadcast(int socket);
 
-  public void setBroadcast (int socket ){
+  public void setBroadcast (){
 	__setBroadcast(__socket);
   }
 

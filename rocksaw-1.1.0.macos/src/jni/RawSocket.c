@@ -47,6 +47,8 @@
 /*
  * Utility functions.
  */
+#define TRUE    1
+#define FALSE   0
 
 static int setintsockopt(int socket, int level, int option, int value);
 static int getintsockopt(int socket, int level, int option);
@@ -58,7 +60,7 @@ static int setintsockopt(int socket, int level, int option, int value) {
 }
 
 static void setBroadcast(int socket){
-	char broadcast = '1';
+	int broadcast = TRUE;
 	setsockopt(socket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast));
 }
 
