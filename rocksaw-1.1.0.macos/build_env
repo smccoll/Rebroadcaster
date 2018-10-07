@@ -1,0 +1,5 @@
+export PATH=$PATH:/Users/smccoll/Downloads/apache-ant-1.10.5/bin
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+export JDK_HOME=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home
+export PATH=$JDK_HOME/bin:$PATH
